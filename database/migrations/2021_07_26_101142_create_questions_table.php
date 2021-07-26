@@ -23,6 +23,7 @@ class CreateQuestionsTable extends Migration
             $table->foreignId('section_id')->constrained();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

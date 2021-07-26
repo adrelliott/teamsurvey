@@ -20,6 +20,7 @@ class CreateParticipantQuestionTable extends Migration
             $table->string('text_response')->nullable();
             $table->integer('number_response')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

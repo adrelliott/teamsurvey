@@ -20,6 +20,7 @@ class CreateSurveysTable extends Migration
             $table->foreignId('client_id')->constrained();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

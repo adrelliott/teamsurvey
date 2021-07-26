@@ -21,6 +21,7 @@ class CreateAnswersTable extends Migration
             $table->foreignId('question_id')->constrained();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

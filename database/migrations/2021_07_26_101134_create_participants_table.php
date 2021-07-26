@@ -22,6 +22,7 @@ class CreateParticipantsTable extends Migration
             $table->foreignId('team_id')->nullable()->constrained();
             $table->foreignId('client_id')->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

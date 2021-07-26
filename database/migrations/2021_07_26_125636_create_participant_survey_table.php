@@ -21,6 +21,7 @@ class CreateParticipantSurveyTable extends Migration
             $table->timestamp('invited_at')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,6 +20,7 @@ class CreateSectionsTable extends Migration
             $table->foreignId('survey_id')->constrained();
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
