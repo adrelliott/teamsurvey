@@ -22,7 +22,9 @@ class SurveyFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->sentence(4),
+            'description' => $this->faker->sentence(12),
+            'published_at' => now(),
         ];
     }
 }

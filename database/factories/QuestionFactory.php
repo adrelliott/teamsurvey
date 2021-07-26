@@ -22,7 +22,7 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            //
-        ];
+            'question' => $this->faker->sentence(),
+            'description' => $this->faker->sentence(12)        ];
     }
 }
