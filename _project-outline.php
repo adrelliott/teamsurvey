@@ -69,6 +69,16 @@ only be redorected to the latest one that's not completed
 1. find participant from session
 2.
 
+## Models
+- User
+- Client
+- Survey
+- Section
+- Participant
+- Question
+- Answer
+- Response
+
 ## Relationships
 A client has users
 A client has surveys
