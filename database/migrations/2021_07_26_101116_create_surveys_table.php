@@ -14,7 +14,11 @@ class CreateSurveysTable extends Migration
     public function up()
     {
         Schema::create('surveys', function (Blueprint $table) {
-            $table->id();
+            $table->id()->from(1984);
+            $table->string('name');
+            $table->string('type')->default('Engagement');
+            $table->foreignId('client_id')->constrained();
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +30,7 @@ class CreateSurveysTable extends Migration
      */
     public function down()
     {
+        $table->dropForeign(['client_id']);
         Schema::dropIfExists('surveys');
     }
 }

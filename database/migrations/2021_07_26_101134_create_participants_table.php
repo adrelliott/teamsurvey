@@ -15,6 +15,12 @@ class CreateParticipantsTable extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->string('email');
+            $table->integer('cohort')->default(1);
+            $table->boolean('active')->default(1);
+            $table->foreignId('team_id')->nullable()->constrained();
+            $table->foreignId('client_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,6 +32,8 @@ class CreateParticipantsTable extends Migration
      */
     public function down()
     {
+        $table->dropForeign(['team_id']);
+        $table->dropForeign(['client_id']);
         Schema::dropIfExists('participants');
     }
 }

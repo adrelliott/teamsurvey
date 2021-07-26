@@ -16,6 +16,7 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->index();
+            $table->foreignId('client_id')->constrained();
             $table->string('name');
             $table->boolean('personal_team');
             $table->timestamps();
@@ -29,6 +30,7 @@ class CreateTeamsTable extends Migration
      */
     public function down()
     {
+        $table->dropForeign(['client_id']);
         Schema::dropIfExists('teams');
     }
 }

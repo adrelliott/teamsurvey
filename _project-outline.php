@@ -1,5 +1,123 @@
 <?php
 
+
+## Models
+- User
+- Client
+- Survey
+- Section
+- Question
+- Answer
+- Participant
+- Response = pivot
+
+
+
+## Migrations
+User:
+- client_id FK
+
+Client:
+- name
+- type nullable
+- street_address nullable
+- city nullable
+- country nullable
+- postcode nullable
+
+Survey:
+- id ->from(2746)
+- name
+- type nullable (ask leanne for type options)
+- client_id FK
+- published_at nullable
+
+Section:
+- id->from(2746)
+- name
+- desciption nullable
+- survey_id FK
+- published_at nullable
+
+Question:
+- text
+- desciption nullable
+- type default 1-5 scale (can also be 1-7, 1-10 etc etc. If it is quiz, then it must have a correct answer)
+- correct_answer nullable
+- section_id FK
+- published_at nullable
+
+Answer:
+- text
+- description
+- question_id FK
+- published_at nullable
+
+Participant:
+- name nullable
+- email required
+- cohort int nullable
+- team_id fk nullable
+- client_id FK
+- active boolean default y
+
+
+participant_question:
+- question_id
+- participant_id
+- text_response
+- number_response
+- created_at, updated at, deleted at
+
+Teams:
+- client_id
+
+participant_survey:
+- participant_id
+- survey_id
+- invite_hash
+- invited_at
+- completed_at
+- timestamps
+
+
+
+## Basic Relationships
+A client hasMany users
+A user belongsTo a client
+
+A client hasMany surveys
+A survey belongsTo a client
+
+A survey hasMany sections
+A section belongsTo a survey
+
+A survey hasMany participants
+A participant hasMany surveys - pivot
+
+A section hasMany questions
+A question belongsTo a section
+
+A question hasMany answers - as in options for an answer
+An answer belongsTo a question
+
+A question hasOne response
+A response belongsTo a question
+
+## Possible advanced queries with relationships
+1. Get all surveys for a given client
+2. Get all questions for a survey seperated into sections, with possible answers
+3. Get all questions for a section
+4. Get all participants for a given survey
+5. get a given section with questions with answers for a participant
+6 Get all questions with responses for a section
+7. Store all responses to questions in a section
+
+**/
+
+
+
+
 // Public routes
 /** Middleware to do this:
 
@@ -68,32 +186,3 @@ only be redorected to the latest one that's not completed
 // destroy($section): delete a set of responses
 1. find participant from session
 2.
-
-## Models
-- User
-- Client
-- Survey
-- Section
-- Participant
-- Question
-- Answer
-- Response
-
-## Relationships
-A client has users
-A client has surveys
-A survey has sections
-A survey has participants
-A section has questions
-A question has answers (as in options for an answer)
-A question has a response
-
-## Relationships to set up
-1. Get all surveys for a given client
-2. Get all questions for a survey seperated into sections, with possible answers
-3. Get all questions for a section
-4. Get all participants for a given survey
-5. get a given section with questions with answers for a participant
-6 Get all questions with responses for a section
-
-**/
