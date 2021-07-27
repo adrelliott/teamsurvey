@@ -13,7 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/client', [App\Http\Controllers\Admin\ClientController::class, 'index']);
+Route::get('/ask', [App\Http\Controllers\Participants\SurveyController::class, 'show'])->middleware('is_invited');
+Route::view('/ask/invite-not-found', 'participants.invite-not-valid');
+Route::view('/ask/survey-not-available', 'participants.survey-not-available');
+// maybe create group with prefix of 'ask' and as('participants.')
+
+
+
+
+
+
+
 
 Route::get('/', function () {
     $survey = App\Models\Survey::first();

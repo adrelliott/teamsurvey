@@ -4,82 +4,40 @@ namespace App\Http\Controllers\Participants;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Survey;
 
 class SurveyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Display the survey start page.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
-    }
+        $survey = Survey::find($request->session()->get('survey_id'));
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        ddd($survey);
+        // Check to see if survey exists, and is open to participants
+        try {
+            $survey = Survey::get($request->session()->get('survey_id'))
+            ->whereNotNull('published_at')
+            ->whereNull('closed_at')
+            ->firstOrFail();
+        } catch (ModelNotFoundException $e) {
+            if ($e instanceof ModelNotFoundException) {
+                dd('Survey either closed or not published yet');
+            }
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        ddd($survey);
+        // $survey_id = $request->session()->get('survey_id', null);
+        // $survey = Survey::findOrFail($survey_id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        // // return the 'start survey' view
+        // return view('particpants.start-survey', compact('survey'));
+        // get the survey (name only), with sections ordered by order, get first where is_completed=null
     }
 }
