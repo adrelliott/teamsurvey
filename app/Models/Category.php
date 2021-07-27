@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Question;
 
-class Answer extends Model
+class Category extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['order', 'text', 'correct_answer', 'published_at'];
+    protected $fillable = ['name', 'description'];
 
 
-    // Get the question that this belongs to
-    public function question()
+    // Get questions for this model
+    public function questions()
     {
-        return $this->belongsTo(Question::class);
+        return $this->belongsToMany(Question::class);
     }
 }

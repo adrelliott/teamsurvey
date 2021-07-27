@@ -13,6 +13,6 @@ class ParticipantSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // Created in ClientSeeder
     }
 }

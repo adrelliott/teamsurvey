@@ -89,14 +89,21 @@ A user belongsTo a client
 A client hasMany surveys
 A survey belongsTo a client
 
+A client hasMany participants
+A participant belongsTo a client
+
+A client hasMany teams
+A team belongsTo a client
+
 A survey hasMany sections
 A section belongsTo a survey
 
-A survey hasMany participants
-A participant hasMany surveys - pivot
+A survey belongsToMany participants
+A participant belongsToMany surveys - pivot
 
 A section hasMany questions
 A question belongsTo a section
+
 
 A question hasMany answers - as in options for an answer
 An answer belongsTo a question

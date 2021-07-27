@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class AnswerSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +13,7 @@ class AnswerSeeder extends Seeder
      */
     public function run()
     {
-        // Not using for this phase of the project
+        // \App\Models\Category::factory(25)->create();
+        // Categories are created in QuesionSeeder
     }
 }

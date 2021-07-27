@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDescriptionColumnToSurveysTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddDescriptionColumnToSurveysTable extends Migration
      */
     public function up()
     {
-        Schema::table('surveys', function (Blueprint $table) {
-            $table->string('description')->after('name')->nullable();
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -25,8 +29,6 @@ class AddDescriptionColumnToSurveysTable extends Migration
      */
     public function down()
     {
-        Schema::table('surveys', function (Blueprint $table) {
-            $table->drop(['description']);
-        });
+        Schema::dropIfExists('categories');
     }
 }

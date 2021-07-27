@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class SurveySeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -13,6 +14,6 @@ class SurveySeeder extends Seeder
      */
     public function run()
     {
-        //
+        // created in ClientSeeder
     }
 }
