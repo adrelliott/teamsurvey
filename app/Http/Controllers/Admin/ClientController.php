@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Survey;
+use App\Http\Controllers\Controller;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
-class SurveyController extends Controller
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        //
+        return 'got here';
     }
 
     /**
@@ -41,10 +42,10 @@ class SurveyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Survey  $survey
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show(Survey $survey)
+    public function show(Client $client)
     {
         //
     }
@@ -52,10 +53,10 @@ class SurveyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Survey  $survey
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function edit(Survey $survey)
+    public function edit(Client $client)
     {
         //
     }
@@ -64,10 +65,10 @@ class SurveyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Survey  $survey
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Survey $survey)
+    public function update(Request $request, Client $client)
     {
         //
     }
@@ -75,10 +76,10 @@ class SurveyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Survey  $survey
+     * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Survey $survey)
+    public function destroy(Client $client)
     {
         //
     }

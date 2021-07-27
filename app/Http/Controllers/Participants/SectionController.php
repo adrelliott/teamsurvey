@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Participants;
 
-use App\Models\Section;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class SectionController extends Controller
@@ -41,10 +41,10 @@ class SectionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Section  $section
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Section $section)
+    public function show($id)
     {
         //
     }
@@ -52,10 +52,10 @@ class SectionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Section  $section
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Section $section)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +64,10 @@ class SectionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Section  $section
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Section $section)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +75,10 @@ class SectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Section  $section
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Section $section)
+    public function destroy($id)
     {
         //
     }

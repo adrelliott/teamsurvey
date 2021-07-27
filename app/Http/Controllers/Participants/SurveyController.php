@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Participants;
 
-use App\Models\Participant;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ParticipantController extends Controller
+class SurveyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class ParticipantController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Participant  $participant
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Participant $participant)
+    public function show($id)
     {
         //
     }
@@ -52,10 +52,10 @@ class ParticipantController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Participant  $participant
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Participant $participant)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +64,10 @@ class ParticipantController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Participant  $participant
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Participant $participant)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +75,10 @@ class ParticipantController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Participant  $participant
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Participant $participant)
+    public function destroy($id)
     {
         //
     }

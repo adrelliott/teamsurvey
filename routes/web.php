@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/client', [App\Http\Controllers\Admin\ClientController::class, 'index']);
+
 Route::get('/', function () {
     $survey = App\Models\Survey::first();
     var_dump($survey->toArray());
