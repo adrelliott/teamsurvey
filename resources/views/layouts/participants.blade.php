@@ -18,7 +18,11 @@
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
-            {{ $slot }}
+            <div class="container mx-auto">
+                <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+                    {{ $slot }}
+                </div>
+            </div>
         </div>
     </body>
 </html>

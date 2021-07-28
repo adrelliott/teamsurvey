@@ -24,17 +24,12 @@ class Survey extends Model
     public function invite(Collection $participants)
     {
         // Sort the participants by client_id
+
         // Check that this user belongs to the same client as the survey does
 
         $this->setInviteValues($participants);
         return $this->participants()->sync($this->inviteValues);
     }
-
-    // public function getActiveSurveyById($id)
-    // {
-    //     // Get the survey
-    //     return $this->find($id);
-    // }
 
     // Set invite date and create unique hash for this invite
     private function setInviteValues($participants)

@@ -20,14 +20,10 @@ class SectionSeeder extends Seeder
         $surveys->each(function ($survey) {
             \App\Models\Section::factory()
                 ->count(rand(3, 7))
-                ->sequence(fn ($sequence) => ['order' => $sequence->index])
+                ->sequence(fn ($sequence) => ['order' => $sequence->index + 1])
                 ->create([
                     'survey_id' => $survey->id,
-                ]);
-            // \App\Models\Section::factory(rand(3, 7))->create([
-            //     'survey_id' => $survey->id,
-            //     'order' => 1 // This needs to be fixed!!!
-            // ]);
+            ]);
         });
     }
 }

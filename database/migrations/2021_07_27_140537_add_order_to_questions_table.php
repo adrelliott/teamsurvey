@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddOrderFieldToSectionsTable extends Migration
+class AddOrderToQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddOrderFieldToSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('sections', function (Blueprint $table) {
+        Schema::table('questions', function (Blueprint $table) {
             $table->integer('order')->after('description');
         });
     }
@@ -25,7 +25,7 @@ class AddOrderFieldToSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('sections', function (Blueprint $table) {
+        Schema::table('questions', function (Blueprint $table) {
             $table->drop(['order']);
         });
     }

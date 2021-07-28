@@ -18,27 +18,27 @@ class IsInvited
      */
     public function handle(Request $request, Closure $next)
     {
-        // Check for key in url, and assign if it's present
-        if (! $invite_hash = $request->get('k', false)) {
+        $inviteHash = $request->get('k', false);
+
+        // Make sure an invite_hash is available in the URL
+        if (! $inviteHash) {
             return redirect('/ask/invite-not-found');
         }
 
         // Check participants_survey for a row with this hash and where invited_at isn't null
         try {
-            $invite = Invitation::where('invite_hash', $invite_hash)
+            $invite = Invitation::where('invite_hash', $inviteHash)
             ->whereNotNull('invited_at')
             ->firstOrFail();
         } catch (ModelNotFoundException $e) {
-            // Overide the 404 - that's just confusing
+            // Overide the 404 - that's just confusing for the user
             if ($e instanceof ModelNotFoundException) {
                 return redirect('/ask/invite-not-found');
             }
         }
 
-        // Store the particpant_id and survey_id in the session & proceed
-        $request->session()->put('participant_id', $invite->participant_id);
-        $request->session()->put('survey_id', $invite->survey_id);
-
+        // Store the invite array in session & move on
+        $request->session()->put('invite', $invite);
         return $next($request);
     }
 }

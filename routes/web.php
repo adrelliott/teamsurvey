@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/ask', [App\Http\Controllers\Participants\SurveyController::class, 'show'])->middleware('is_invited');
-Route::view('/ask/invite-not-found', 'participants.invite-not-valid');
-Route::view('/ask/survey-not-available', 'participants.survey-not-available');
+Route::resource('/ask/section/{$section}', App\Http\Controllers\Participants\SectionController::class)->middleware('is_invited');
+
+// Routes for when no survey is available or completed
+Route::view('/ask/invite-not-found', 'participants.surveys.invite-not-valid');
+Route::view('/ask/survey-not-available', 'participants.surveys.survey-not-available');
+Route::view('/ask/survey-completed', 'participants.surveys.survey-completed');
 // maybe create group with prefix of 'ask' and as('participants.')
 
 
@@ -26,15 +31,7 @@ Route::view('/ask/survey-not-available', 'participants.survey-not-available');
 
 
 Route::get('/', function () {
-    $survey = App\Models\Survey::first();
-    var_dump($survey->toArray());
-    echo '<br><br>';
-    $participants = App\Models\Participant::where('client_id', $survey->client_id)->take(3)->get();
-    $participants->each(function ($participant) {
-    });
-    var_dump($participants->count());
-    echo '<br>';
-    $survey->invite($participants);
+    return view('welcome');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

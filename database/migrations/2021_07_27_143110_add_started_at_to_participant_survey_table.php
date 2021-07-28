@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddOrderFieldToSectionsTable extends Migration
+class AddStartedAtToParticipantSurveyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddOrderFieldToSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('sections', function (Blueprint $table) {
-            $table->integer('order')->after('description');
+        Schema::table('participant_survey', function (Blueprint $table) {
+            $table->timestamp('started_at')->after('invited_at')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddOrderFieldToSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('sections', function (Blueprint $table) {
-            $table->drop(['order']);
+        Schema::table('participant_survey', function (Blueprint $table) {
+            $table->drop(['started_at']);
         });
     }
 }

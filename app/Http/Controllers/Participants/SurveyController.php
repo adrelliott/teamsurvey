@@ -4,10 +4,17 @@ namespace App\Http\Controllers\Participants;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Services\Surveys\SurveyService;
 use App\Models\Survey;
 
 class SurveyController extends Controller
 {
+    protected $surveyService;
+
+    public function __construct(SurveyService $surveyService)
+    {
+        $this->surveyService = $surveyService;
+    }
 
     /**
      * Display the survey start page.
@@ -17,27 +24,28 @@ class SurveyController extends Controller
      */
     public function show(Request $request)
     {
-        $survey = Survey::find($request->session()->get('survey_id'));
-
-        ddd($survey);
-        // Check to see if survey exists, and is open to participants
-        try {
-            $survey = Survey::get($request->session()->get('survey_id'))
-            ->whereNotNull('published_at')
-            ->whereNull('closed_at')
-            ->firstOrFail();
-        } catch (ModelNotFoundException $e) {
-            if ($e instanceof ModelNotFoundException) {
-                dd('Survey either closed or not published yet');
-            }
+        // Check we have an invite model in the session
+        $invite = $request->session()->get('invite', false);
+        if (! $invite) {
+            return redirect('/ask/invite-not-found');
         }
 
-        ddd($survey);
-        // $survey_id = $request->session()->get('survey_id', null);
-        // $survey = Survey::findOrFail($survey_id);
+        // Get the survey, and if it isn't active or doesn't exits, redirect
+        $survey = $this->surveyService->findActiveSurveyById($invite->survey_id);
+        if (! $survey) {
+            return redirect('/ask/survey-not-available');
+        }
 
-        // // return the 'start survey' view
-        // return view('particpants.start-survey', compact('survey'));
-        // get the survey (name only), with sections ordered by order, get first where is_completed=null
+        // Get current section
+        $section = $this->surveyService->getCurrentSection($invite->current_section_id);
+
+        // Return view with the vars required
+        return view('participants.surveys.view', [
+            'invite'    => $invite,
+            'survey'    => $survey,
+            'currentSection'    => $section,
+            'totalSections'    => $this->surveyService->totalNoOfSections(),
+            'questions'    => $section->questions,
+        ]);
     }
 }

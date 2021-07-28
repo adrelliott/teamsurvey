@@ -13,7 +13,6 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\Category::factory(25)->create();
-        // Categories are created in QuesionSeeder
+        \App\Models\Category::factory(25)->create();
     }
 }
