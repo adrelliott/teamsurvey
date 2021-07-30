@@ -15,7 +15,6 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -36,7 +35,6 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

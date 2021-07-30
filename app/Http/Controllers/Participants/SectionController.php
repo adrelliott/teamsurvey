@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Participants;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Section;
 
 class SectionController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,7 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
+        return 'this is index';
     }
 
     /**
@@ -35,7 +37,21 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('got here too');
+        // Validate
+
+        // Get the current section and sync in participant_question
+        $section = Section::FindOrFail($request->s_id);
+
+
+        // Sync the participant_question
+        dd($request->all());
+
+        // Update the participant_survey current_section_id
+
+        // Redirect including the invite_hash
+        var_dump($request->session()->get('invite', false));
+        dd($request->all());
     }
 
     /**

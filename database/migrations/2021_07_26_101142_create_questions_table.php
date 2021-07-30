@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->string('question');
             $table->string('description')->nullable();
-            $table->string('type')->default('1-5 Scale');
+            $table->string('type')->default('scale_7');
             $table->string('correct_answer')->nullable();
             $table->foreignId('section_id')->constrained();
             $table->timestamp('published_at')->nullable();

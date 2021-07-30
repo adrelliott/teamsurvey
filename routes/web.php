@@ -14,13 +14,19 @@ use Illuminate\Http\Request;
 |
 */
 
+// Routes for viewing a survey
 Route::get('/ask', [App\Http\Controllers\Participants\SurveyController::class, 'show'])->middleware('is_invited');
-Route::resource('/ask/section/{$section}', App\Http\Controllers\Participants\SectionController::class)->middleware('is_invited');
-
-// Routes for when no survey is available or completed
 Route::view('/ask/invite-not-found', 'participants.surveys.invite-not-valid');
 Route::view('/ask/survey-not-available', 'participants.surveys.survey-not-available');
 Route::view('/ask/survey-completed', 'participants.surveys.survey-completed');
+
+// Routes for doing a survey
+Route::resource('/ask/section', App\Http\Controllers\Participants\SectionController::class)->middleware('is_authorised');
+
+
+
+
+
 // maybe create group with prefix of 'ask' and as('participants.')
 
 
@@ -34,6 +40,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
