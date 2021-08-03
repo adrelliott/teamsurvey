@@ -14,11 +14,13 @@ use Illuminate\Http\Request;
 |
 */
 
-// Routes for viewing a survey
-Route::get('/ask', [App\Http\Controllers\Participants\SurveyController::class, 'show'])->middleware('is_invited');
-Route::view('/ask/invite-not-found', 'participants.surveys.invite-not-valid');
-Route::view('/ask/survey-not-available', 'participants.surveys.survey-not-available');
-Route::view('/ask/survey-completed', 'participants.surveys.survey-completed');
+// Surveys
+Route::view('/ask/invite-not-found', 'participants.surveys.invite-not-valid')->name('surveys.inviteNotFound');
+Route::view('/ask/survey-not-available', 'participants.surveys.survey-not-available')->name('surveys.surveyNotFound');
+Route::view('/ask/survey-completed', 'participants.surveys.survey-completed')->name('surveys.surveyCompleted');
+// Has to go last as it's the 'catchall'
+Route::get('/ask/{inviteHash}', [App\Http\Controllers\Participants\SurveyController::class, 'show'])->middleware('is_invited');
+
 
 // Routes for doing a survey
 Route::resource('/ask/section', App\Http\Controllers\Participants\SectionController::class)->middleware('is_authorised');

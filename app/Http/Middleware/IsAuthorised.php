@@ -16,15 +16,15 @@ class IsAuthorised
      */
     public function handle(Request $request, Closure $next)
     {
-        // Get the two values, and redirect if they're not present
-        $invite = $request->session()->get('invite', false);
-        $participantId = $request->get('p_id', false);
-        if (! $invite || ! $participantId) {
-            return redirect('/ask/invite-not-found');
+        // Get the invite hash from the request & the invite object from the session
+        $inviteHash = $request->get('i', false);
+        $invitation = $request->session()->get('invitation.' . $inviteHash);
+
+        // Redirect if the id doesn't exist
+        if (! $inviteHash || ! $invitation) {
+            return redirect()->route('surveys.inviteNotFound');
         }
 
-        // Abort if the participant_id !== the same one passed in the form
-        abort_if(intval($participantId) !== $invite->participant_id, 403);
         return $next($request);
     }
 }

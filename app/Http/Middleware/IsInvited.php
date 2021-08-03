@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Http\Request;
 use App\Models\Invitation;
 
@@ -18,16 +19,18 @@ class IsInvited
      */
     public function handle(Request $request, Closure $next)
     {
-        $inviteHash = $request->get('k', false);
+        // Look for segment 2 (/ask/ThisValue), sanitise & unhash
+        $inviteHash = filter_var($request->segment(2), FILTER_SANITIZE_STRING);
+        $id = head(Hashids::decode($inviteHash)); //Decode returns an array
 
-        // Make sure an invite_hash is available in the URL
-        if (! $inviteHash) {
-            return redirect('/ask/invite-not-found');
+        // Redirect if the id doesn't exist
+        if (! $id) {
+            return redirect()->route('surveys.inviteNotFound');
         }
 
         // Check participants_survey for a row with this hash and where invited_at isn't null
         try {
-            $invite = Invitation::where('invite_hash', $inviteHash)
+            $invitation = Invitation::where('id', $id)
             ->whereNotNull('invited_at')
             ->firstOrFail();
         } catch (ModelNotFoundException $e) {
@@ -38,7 +41,7 @@ class IsInvited
         }
 
         // Store the invite array in session & move on
-        $request->session()->put('invite', $invite);
+        $request->session()->put('invitation.' . $inviteHash, $invitation);
         return $next($request);
     }
 }

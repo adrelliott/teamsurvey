@@ -37,18 +37,33 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        dd('got here too');
+        // validate
+
+        // Store the responses question_participant
+        $section =
+
+        // Update the current_section_id on the Invitation model
+
+        // persist to both session and DB
+
+        // if it's the last section, then delete the session and redirect
+
+        // if not then
+
+
+
+        dd('participants/sectioncontroller');
         // Validate
 
         // Get the current section and sync in participant_question
         $section = Section::FindOrFail($request->s_id);
 
-
         // Sync the participant_question
-        dd($request->all());
+
 
         // Update the participant_survey current_section_id
 
+        // destory the session if this si the last section
         // Redirect including the invite_hash
         var_dump($request->session()->get('invite', false));
         dd($request->all());

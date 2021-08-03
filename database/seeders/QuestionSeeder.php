@@ -23,6 +23,7 @@ class QuestionSeeder extends Seeder
                 ->sequence(fn ($sequence) => ['order' => $sequence->index + 1])
                 ->has(\App\Models\Category::factory()->count(2))
                 ->create([
+                    'question' => 'Question goes here - survid=' . $section->survey->id . '&secid=' . $section->id,
                     'section_id' => $section->id,
             ]);
         });

@@ -14,10 +14,10 @@ class CreateParticipantSurveyTable extends Migration
     public function up()
     {
         Schema::create('participant_survey', function (Blueprint $table) {
-            $table->id();
+            $table->id()->from(2021);
             $table->foreignId('participant_id')->constrained();
             $table->foreignId('survey_id')->constrained();
-            $table->string('invite_hash');
+            $table->string('invite_hash')->nullable();
             $table->timestamp('invited_at')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
