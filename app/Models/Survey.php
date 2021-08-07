@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Vinkla\Hashids\Facades\Hashids;
 use App\Models\Participant;
@@ -22,24 +22,22 @@ class Survey extends Model
     protected $fillable = ['name', 'type', 'description', 'published_at'];
 
     // Invite participants when given a collection of Participants
-    public function invite(Collection $participants)
+    public function invite($participants)
     {
-        return $this->participants()->syncWithPivotValues(
-            $participants->pluck('id'),
-            ['invited_at' => now()]
-        );
+        $this->setInviteValues($participants);
+        return $this->participants()->sync($this->inviteValues);
     }
 
     // Set invite date and create unique hash for this invite
-    // private function setInviteValues($participants)
-    // {
-    //     $participants->each(function ($participant) {
-    //         $this->inviteValues[$participant->id] = [
-    //             'invite_hash' => bcrypt($this->id . $participant->id),
-    //             'invited_at' => now()
-    //         ];
-    //     });
-    // }
+    private function setInviteValues(Collection $participants)
+    {
+        $participants->each(function ($participant) {
+            $this->inviteValues[$participant] = [
+                'invite_hash' => Hashids::encode($this->id . $participant),
+                'invited_at' => now()
+            ];
+        });
+    }
 
     // Get sections for this model
     public function sections()

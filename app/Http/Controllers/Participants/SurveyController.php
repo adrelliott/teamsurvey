@@ -26,9 +26,11 @@ class SurveyController extends Controller
      */
     public function show(Request $request)
     {
-        // Get the invite from the session (set in the is_invited middleware)
-        $inviteHash = $inviteHash = filter_var($request->segment(2), FILTER_SANITIZE_STRING);
-        $invitation = $request->session()->get('invitation.' . $inviteHash);
+        // Get the invite from the session (set in the is_invited middleware) & redirect if completed
+        $invitation = $request->session()->get('invitation');
+        if ($invitation->completed_at) {
+            return redirect()->route('surveys.surveyCompleted');
+        }
 
         // Get the survey, and if it isn't active or doesn't exist, redirect
         $survey = $this->surveyService->getSurvey($invitation);
@@ -37,18 +39,16 @@ class SurveyController extends Controller
         }
 
         // Return view with the vars required
-        return view('participants.surveys.view', [
-            'invitation'            => $invitation,
-            'survey'                => $survey,
-            'invite_hash'           => $inviteHash,
-        ]);
+        return view('participants.surveys.view', compact('survey', 'invitation'));
     }
+
+
 
     public function store(StoreQuestionResponseRequest $formRequest)
     {
-        dd($formRequest->session()->get('invitation'));
-        // $this->invitation = Invitation::findByHashedId($inviteHash);
-        $this->invitation->current_section_id = 2;
-        $this->invitation->save();
+        // dd($formRequest->session()->get('invitation'));
+        // // $this->invitation = Invitation::findByHashedId($inviteHash);
+        // $this->invitation->current_section_id = 2;
+        // $this->invitation->save();
     }
 }

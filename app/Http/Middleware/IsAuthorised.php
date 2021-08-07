@@ -16,12 +16,9 @@ class IsAuthorised
      */
     public function handle(Request $request, Closure $next)
     {
-        // Get the invite hash from the request & the invite object from the session
-        $inviteHash = $request->get('i', false);
-        $invitation = $request->session()->get('invitation.' . $inviteHash);
-
-        // Redirect if the id doesn't exist
-        if (! $inviteHash || ! $invitation) {
+        // Get the invitation object from the request & redirect if it doesn't exist
+        $invitation = $request->session()->get('invitation', false);
+        if (! $invitation) {
             return redirect()->route('surveys.inviteNotFound');
         }
 

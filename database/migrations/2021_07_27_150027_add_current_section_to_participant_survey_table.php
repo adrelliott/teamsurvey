@@ -14,7 +14,7 @@ class AddCurrentSectionToParticipantSurveyTable extends Migration
     public function up()
     {
         Schema::table('participant_survey', function (Blueprint $table) {
-            $table->unsignedBigInteger('current_section_id')->after('invite_hash')->nullable();
+            // $table->unsignedBigInteger('current_section_id')->after('invite_hash')->nullable();
         });
     }
 

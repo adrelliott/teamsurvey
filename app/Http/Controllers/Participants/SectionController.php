@@ -40,7 +40,7 @@ class SectionController extends Controller
         // validate
 
         // Store the responses question_participant
-        $section =
+
 
         // Update the current_section_id on the Invitation model
 

@@ -13,7 +13,7 @@ class InvitationSeeder extends Seeder
      */
     public function run()
     {
-        echo 'This may take a while. We are inviting ALL participants to ALL surveys for EVERY client  - get a cup of coffee and a KitKat....';
+        $this->command->comment('This may take a while. We are inviting ALL participants to ALL surveys for EVERY client  - get a cup of coffee and a KitKat....');
         // Get all surveys and group by clients
         $allSurveys = \App\Models\Survey::all()->groupBy('client_id');
 
@@ -22,11 +22,11 @@ class InvitationSeeder extends Seeder
 
         // Now for each survey invite all participants to that survey
         foreach ($allSurveys as $client => $surveys) {
-            $invited = $allParticipants[$client];
+            $invited = $allParticipants[$client]->pluck('id');
             $surveys->each(function ($survey) use ($invited) {
                 $survey->invite($invited);
             });
         }
-        echo '.........And we are DONE!';
+        $this->command->comment('.........And we are DONE!');
     }
 }

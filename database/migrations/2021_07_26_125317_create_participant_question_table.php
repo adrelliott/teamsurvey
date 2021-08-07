@@ -17,8 +17,8 @@ class CreateParticipantQuestionTable extends Migration
             $table->id();
             $table->foreignId('participant_id')->constrained();
             $table->foreignId('question_id')->constrained();
-            $table->string('text_response')->nullable();
-            $table->integer('number_response')->nullable();
+            $table->text('response')->nullable();
+            // $table->integer('number_response')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

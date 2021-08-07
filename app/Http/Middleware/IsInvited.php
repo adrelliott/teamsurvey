@@ -28,20 +28,18 @@ class IsInvited
             return redirect()->route('surveys.inviteNotFound');
         }
 
-        // Check participants_survey for a row with this hash and where invited_at isn't null
-        try {
-            $invitation = Invitation::where('id', $id)
+        // Check participants_survey & redirect if nothing found
+        $invitation = Invitation::where('id', $id)
             ->whereNotNull('invited_at')
-            ->firstOrFail();
-        } catch (ModelNotFoundException $e) {
-            // Overide the 404 - that's just confusing for the user
-            if ($e instanceof ModelNotFoundException) {
-                return redirect('/ask/invite-not-found');
-            }
+            ->first();
+        if (! $invitation) {
+            return redirect('/ask/invite-not-found');
         }
 
         // Store the invite array in session & move on
-        $request->session()->put('invitation.' . $inviteHash, $invitation);
+        $invitation->invite_hash = $inviteHash;
+        $request->session()->put('invitation', $invitation);
+        // dd($request->session()->get('invitation'));
         return $next($request);
     }
 }

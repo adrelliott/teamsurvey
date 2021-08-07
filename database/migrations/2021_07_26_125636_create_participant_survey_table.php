@@ -17,7 +17,8 @@ class CreateParticipantSurveyTable extends Migration
             $table->id()->from(2021);
             $table->foreignId('participant_id')->constrained();
             $table->foreignId('survey_id')->constrained();
-            $table->string('invite_hash')->nullable();
+            $table->string('invite_hash')->index();
+            $table->integer('current_section_no')->default(0);
             $table->timestamp('invited_at')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();

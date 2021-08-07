@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Section;
@@ -16,6 +17,21 @@ class Question extends Model
 
     protected $fillable = ['question', 'description', 'type', 'correct_answer', 'published_at'];
 
+    /**
+     * Always retutns the sections in order
+     * NB: To get in any other order use
+     * Question::withoutGlobalScope('questionsInOrder')->get();.
+     *
+     * @var array
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('questionsInOrder', function (Builder $builder) {
+            $builder->orderBy('order', 'asc');
+        });
+    }
 
     // Get the answers that this belongs to
     public function answers()
